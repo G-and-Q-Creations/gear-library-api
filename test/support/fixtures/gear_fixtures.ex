@@ -17,4 +17,19 @@ defmodule GearLibraryApi.GearFixtures do
 
     library
   end
+
+  @doc """
+  Generate a item.
+  """
+  def item_fixture(attrs \\ %{}) do
+    {:ok, item} =
+      attrs
+      |> Enum.into(%{
+        name: "some name",
+        description: "some description"
+      })
+      |> GearLibraryApi.Gear.create_item()
+
+    item
+  end
 end
