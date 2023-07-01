@@ -4,8 +4,8 @@ defmodule GearLibraryApi.Repo.Migrations.CreateLibrarians do
   def change do
     create table(:librarians, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :person, references(:people, on_delete: :nothing, type: :binary_id)
-      add :library, references(:libraries, on_delete: :nothing, type: :binary_id)
+      add :person, references(:people, on_delete: :delete_all, type: :binary_id), null: false
+      add :library, references(:libraries, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps()
     end
