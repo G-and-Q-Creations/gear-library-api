@@ -7,6 +7,8 @@ defmodule GearLibraryApiWeb.Router do
 
   scope "/api", GearLibraryApiWeb do
     pipe_through :api
+
+    resources "/people", PersonController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
