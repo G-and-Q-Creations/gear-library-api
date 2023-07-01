@@ -6,7 +6,7 @@ defmodule GearLibraryApi.Repo.Migrations.CreateItems do
       add :id, :binary_id, primary_key: true
       add :name, :string
       add :description, :text
-      add :library_id, references(:libraries, on_delete: :nothing, type: :binary_id)
+      add :library_id, references(:libraries, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end
