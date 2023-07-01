@@ -8,7 +8,8 @@ defmodule GearLibraryApi.AccountsTest do
 
     import GearLibraryApi.AccountsFixtures
 
-    @invalid_attrs %{name: nil, role: nil, email: nil}
+    @invalid_attrs %{name: nil, email: nil}
+    @valid_attrs %{name: "some name", email: "some email"}
 
     test "list_people/0 returns all people" do
       person = person_fixture()
@@ -21,12 +22,16 @@ defmodule GearLibraryApi.AccountsTest do
     end
 
     test "create_person/1 with valid data creates a person" do
-      valid_attrs = %{name: "some name", role: :admin, email: "some email"}
-
-      assert {:ok, %Person{} = person} = Accounts.create_person(valid_attrs)
+      assert {:ok, %Person{} = person} = Accounts.create_person(@valid_attrs)
       assert person.name == "some name"
-      assert person.role == :admin
+      assert person.role == :regular
       assert person.email == "some email"
+    end
+
+    test "create_person/1 won't set role to :admin" do
+      valid_attrs = Map.put(@valid_attrs, :role, :admin)
+      assert {:ok, %Person{} = person} = Accounts.create_person(valid_attrs)
+      assert person.role == :regular
     end
 
     test "create_person/1 with invalid data returns error changeset" do
@@ -35,12 +40,19 @@ defmodule GearLibraryApi.AccountsTest do
 
     test "update_person/2 with valid data updates the person" do
       person = person_fixture()
-      update_attrs = %{name: "some updated name", role: :regular, email: "some updated email"}
+      update_attrs = %{name: "some updated name", email: "some updated email"}
 
       assert {:ok, %Person{} = person} = Accounts.update_person(person, update_attrs)
       assert person.name == "some updated name"
-      assert person.role == :regular
       assert person.email == "some updated email"
+    end
+
+    test "update_person/2 won't alter role to be :admin" do
+      person = person_fixture()
+      update_attrs = %{role: :admin}
+
+      assert {:ok, %Person{} = person} = Accounts.update_person(person, update_attrs)
+      assert person.role == :regular
     end
 
     test "update_person/2 with invalid data returns error changeset" do

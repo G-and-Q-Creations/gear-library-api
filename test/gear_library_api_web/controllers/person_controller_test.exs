@@ -7,15 +7,13 @@ defmodule GearLibraryApiWeb.PersonControllerTest do
 
   @create_attrs %{
     name: "some name",
-    role: :admin,
     email: "some email"
   }
   @update_attrs %{
     name: "some updated name",
-    role: :regular,
     email: "some updated email"
   }
-  @invalid_attrs %{name: nil, role: nil, email: nil}
+  @invalid_attrs %{name: nil, email: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -39,7 +37,7 @@ defmodule GearLibraryApiWeb.PersonControllerTest do
                "id" => ^id,
                "email" => "some email",
                "name" => "some name",
-               "role" => "admin"
+               "role" => "regular"
              } = json_response(conn, 200)["data"]
     end
 

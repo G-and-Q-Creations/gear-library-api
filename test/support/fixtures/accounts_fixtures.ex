@@ -17,7 +17,6 @@ defmodule GearLibraryApi.AccountsFixtures do
       attrs
       |> Enum.into(%{
         name: "some name",
-        role: :admin,
         email: unique_person_email()
       })
       |> GearLibraryApi.Accounts.create_person()
