@@ -15,7 +15,8 @@ defmodule GearLibraryApi.Accounts.Person do
   @doc false
   def changeset(person, attrs) do
     person
-    |> cast(attrs, [:name, :email, :role])
+    |> cast(attrs, [:name, :email])
+    |> put_change(:role, :regular)
     |> validate_required([:name, :email, :role])
     |> unique_constraint(:email)
   end
