@@ -10,6 +10,7 @@ We use [asdf][asdf] for managing language dependencies for this project. If you 
 ### Dev dependencies
 
 * Run `mix setup` to install and setup project dependencies
+* Install `pre-commit` to so that pre-commit runs when you make git commits `$ pip install pre-commit`
 
 ### Running locally
 * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
