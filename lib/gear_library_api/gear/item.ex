@@ -10,7 +10,7 @@ defmodule GearLibraryApi.Gear.Item do
   schema "items" do
     field :name, :string
     field :description, :string
-    field :library_id, :binary_id
+    belongs_to :library, GearLibraryApi.Gear.Library
 
     timestamps()
   end
