@@ -13,6 +13,9 @@ defmodule GearLibraryApi.Accounts.Person do
     field :role, Ecto.Enum, values: [:admin, :regular]
     field :email, :string
 
+    many_to_many :libraries, GearLibraryApi.Gear.Library,
+      join_through: GearLibraryApi.Librarians.Librarian
+
     timestamps()
   end
 

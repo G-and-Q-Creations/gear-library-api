@@ -8,6 +8,8 @@ defmodule GearLibraryApiWeb.Router do
   scope "/api", GearLibraryApiWeb do
     pipe_through :api
 
+    resources "/items", ItemController, except: [:new, :edit]
+    resources "/libraries", LibraryController, except: [:new, :edit]
     resources "/people", PersonController, except: [:new, :edit]
   end
 
