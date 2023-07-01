@@ -18,7 +18,7 @@ defmodule GearLibraryApi.Gear.Item do
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :description, :library_id])
+    |> validate_required([:name, :description, :library_id])
   end
 end

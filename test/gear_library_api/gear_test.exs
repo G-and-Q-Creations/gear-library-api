@@ -8,7 +8,7 @@ defmodule GearLibraryApi.GearTest do
 
     import GearLibraryApi.GearFixtures
 
-    @invalid_attrs %{name: nil}
+    @invalid_attrs %{name: nil, library_id: nil}
 
     test "list_libraries/0 returns all libraries" do
       library = library_fixture()
@@ -75,7 +75,8 @@ defmodule GearLibraryApi.GearTest do
     end
 
     test "create_item/1 with valid data creates a item" do
-      valid_attrs = %{name: "some name", description: "some description"}
+      library = library_fixture()
+      valid_attrs = %{name: "some name", description: "some description", library_id: library.id}
 
       assert {:ok, %Item{} = item} = Gear.create_item(valid_attrs)
       assert item.name == "some name"
@@ -84,6 +85,11 @@ defmodule GearLibraryApi.GearTest do
 
     test "create_item/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Gear.create_item(@invalid_attrs)
+    end
+
+    test "create_item/1 without library id returns error changeset" do
+      invalid_attrs = Map.put(@invalid_attrs, :name, "Some Name")
+      assert {:error, %Ecto.Changeset{}} = Gear.create_item(invalid_attrs)
     end
 
     test "update_item/2 with valid data updates the item" do

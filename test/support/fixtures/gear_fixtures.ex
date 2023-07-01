@@ -22,11 +22,14 @@ defmodule GearLibraryApi.GearFixtures do
   Generate a item.
   """
   def item_fixture(attrs \\ %{}) do
+    library = library_fixture()
+
     {:ok, item} =
       attrs
       |> Enum.into(%{
         name: "some name",
-        description: "some description"
+        description: "some description",
+        library_id: library.id
       })
       |> GearLibraryApi.Gear.create_item()
 

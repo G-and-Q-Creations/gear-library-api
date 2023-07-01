@@ -19,7 +19,8 @@ defmodule GearLibraryApiWeb.ItemJSON do
     %{
       id: item.id,
       name: item.name,
-      description: item.description
+      description: item.description,
+      library_id: item.library_id
     }
   end
 end

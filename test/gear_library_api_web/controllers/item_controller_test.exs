@@ -5,15 +5,19 @@ defmodule GearLibraryApiWeb.ItemControllerTest do
 
   alias GearLibraryApi.Gear.Item
 
-  @create_attrs %{
-    name: "some name",
-    description: "some description"
-  }
+  def create_attrs do
+    %{
+      name: "some name",
+      description: "some description",
+      library_id: library_fixture().id
+    }
+  end
+
   @update_attrs %{
     name: "some updated name",
     description: "some updated description"
   }
-  @invalid_attrs %{name: nil, description: nil}
+  @invalid_attrs %{name: nil, description: nil, library_id: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -28,7 +32,9 @@ defmodule GearLibraryApiWeb.ItemControllerTest do
 
   describe "create item" do
     test "renders item when data is valid", %{conn: conn} do
-      conn = post(conn, ~p"/api/items", item: @create_attrs)
+      local_create_attrs = create_attrs()
+      library_id = local_create_attrs.library_id
+      conn = post(conn, ~p"/api/items", item: local_create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, ~p"/api/items/#{id}")
@@ -36,7 +42,8 @@ defmodule GearLibraryApiWeb.ItemControllerTest do
       assert %{
                "id" => ^id,
                "description" => "some description",
-               "name" => "some name"
+               "name" => "some name",
+               "library_id" => ^library_id
              } = json_response(conn, 200)["data"]
     end
 
