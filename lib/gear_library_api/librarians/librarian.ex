@@ -8,8 +8,8 @@ defmodule GearLibraryApi.Librarians.Librarian do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "librarians" do
-    field :person, :binary_id
-    field :library, :binary_id
+    belongs_to :person, GearLibraryApi.Accounts.Person
+    belongs_to :library, GearLibraryApi.Gear.Library
 
     timestamps()
   end
@@ -17,7 +17,7 @@ defmodule GearLibraryApi.Librarians.Librarian do
   @doc false
   def changeset(librarian, attrs) do
     librarian
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:person_id, :library_id])
+    |> validate_required([:person_id, :library_id])
   end
 end
