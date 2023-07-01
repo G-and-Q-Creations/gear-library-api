@@ -1,4 +1,8 @@
 defmodule GearLibraryApi.Accounts.Person do
+  @moduledoc """
+  The Person schema manager
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
