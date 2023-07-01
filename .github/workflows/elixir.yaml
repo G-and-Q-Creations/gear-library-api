@@ -110,6 +110,8 @@ jobs:
     - uses: actions/setup-python@v3
     - name: Pre-Commit Checks
       uses: pre-commit/action@v3.0.0
+      env:
+        - SKIP: no-commit-to-branch
 
     # Step: Execute the tests.
     - name: Run tests
